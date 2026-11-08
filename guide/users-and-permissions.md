@@ -78,8 +78,8 @@ Click **Remove** next to a user in the user list and confirm. This revokes their
 
 You cannot remove the last remaining user of a workspace.
 
-> [!WARNING]
-> Grein does not stop you from removing or demoting the last admin as long as other users remain. Make sure at least one admin is always left, or nobody will be able to manage users, settings or the schema.
+> [!NOTE]
+> A workspace always keeps at least one admin and at least one user. You can't demote or remove the only admin; make another user an admin first.
 
 Invitations, role changes, access level changes and removals are recorded in the [privileged action log](audit.md#privileged-action-log).
 

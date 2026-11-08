@@ -74,7 +74,7 @@ Returns a paginated list of records. Supports the following query parameters:
 |---|---|---|
 | `page` | 1 | Page number (starts at 1). |
 | `pageSize` | 50 | Records per page (1–200). |
-| `source` | `merged` | Which source's values to return. With a source other than `merged`, only records that have values from that source are listed. |
+| `source` | `merged` | Which source's values to return. With a source other than `merged`, only records that have values from that source are listed. An unknown source name returns `400`. |
 | `since` | *none* | ISO 8601 timestamp. Only returns records created or changed after this time. See [Incremental sync](#incremental-sync). |
 
 **Field filtering:** any other query parameter is treated as a filter on the field with that machine name. For example, `?country=US&status=active` returns only records where the `country` field equals "US" and the `status` field equals "active". Filters are exact matches. Dates are written as `YYYY-MM-DD` and booleans as `true`/`false` (or `1`/`0`). On an amount field the filter matches the currency code, and on a unit field it matches the unit. An unknown field name, a field outside the key's clearance, or a value that doesn't fit the field type returns `400 Bad Request`.
@@ -176,7 +176,7 @@ Bulk-imports a CSV, TSV or other delimited text file, or an Apache Parquet file.
 - For delimited files, the delimiter is detected automatically.
 - Column headers are matched to field machine names, ignoring case. Columns that don't match a field, or that belong to a field outside the key's clearance, are ignored.
 - Rows are matched to existing records by unique key, so existing records are updated and new ones created.
-- Files can be up to 50 MB. Parquet files can have up to 100,000 rows; nested column types (arrays, maps, structs) are skipped.
+- Files can be up to 50 MB. Parquet files can have up to 100,000 rows; nested column types (arrays, maps, structs) are skipped. A Parquet file that is too large or can't be read returns `422` with the reason.
 
 Valid rows are imported and invalid rows are skipped. The response reports what happened:
 
@@ -253,13 +253,13 @@ The API uses standard HTTP status codes:
 
 | Status | Meaning |
 |---|---|
-| `400` | Bad request: unknown filter field, malformed filter value, invalid `since` value, or no file in an upload. |
+| `400` | Bad request: unknown filter field, malformed filter value, invalid `since` value, unknown `source` when reading, or no file in an upload. |
 | `401` | Unauthorised: missing, invalid or disabled API key. |
 | `403` | Forbidden: the workspace doesn't have API access, the key's sensitivity clearance doesn't cover any of the entity type's fields, the entity type is deactivated (read-only), or a plan limit on storage or records has been reached. |
 | `404` | Not found: the entity type or record doesn't exist. |
 | `409` | Conflict: ambiguous upsert match, or the record has dependents that prevent deletion. |
 | `415` | Unsupported media type: write requests must use `Content-Type: application/json` (uploads: `multipart/form-data`). |
-| `422` | Unprocessable: field validation errors, or a missing, unknown or reserved `source`. |
+| `422` | Unprocessable: field validation errors, or a missing, unknown or reserved `source` when writing. |
 | `429` | Too many requests: rate limit exceeded. See [Rate limiting](#rate-limiting). |
 
 Error response format:

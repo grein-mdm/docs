@@ -69,7 +69,8 @@ Users cannot write to fields they cannot see. The field simply does not exist fr
 
 If a user's access level is lower than the entity type's sensitivity, the entity type is hidden entirely:
 
-- It does not appear in the **Schemas** list or the [Data Dictionary](data-dictionary.md).
+- It does not appear in the **Data** section of the sidebar, the **Schemas** list or the [Data Dictionary](data-dictionary.md).
+- It cannot be used for [AI attribute extraction](ai-extraction.md).
 - It does not appear in the data stewardship overview.
 - It does not appear in the entity type dropdown when importing data.
 - [Natural language query](ai-query.md) cannot use it.

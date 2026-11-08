@@ -13,7 +13,7 @@ Choose an **Entity type** and a **Destination**. The entity type dropdown only s
 
 ## Pasting data or loading a file
 
-Paste your data into the text area, drag and drop a file onto it, or click **browse** to pick a file. Text files (`.csv`, `.tsv`, `.txt`) of up to 50 MB are supported.
+Paste your data into the text area, drag and drop a file onto it, or click **browse** to pick a file. Text files (`.csv`, `.tsv`, `.txt`) and Apache Parquet files (`.parquet`) of up to 50 MB are supported.
 
 The first row must be a header row with column names. Values may be enclosed in double quotes, so that they can contain the delimiter or line breaks. The importer automatically detects the delimiter, trying the following in order:
 
@@ -28,8 +28,9 @@ The detected delimiter is shown below the text area. Data with only one column i
 > [!TIP]
 > Copying a range of cells from Excel or Google Sheets and pasting it into the text area works well — spreadsheets use the tab-delimited format when copying to the clipboard.
 
-> [!NOTE]
-> Apache Parquet files can't be imported on this page. To import a Parquet file, upload it through the [REST API](api.md).
+### Parquet files
+
+A Parquet file is read on the server rather than shown in the text area. The page shows the file name and the number of rows, and the file's column names are used as the headers. Columns with nested values (lists, structs or maps) are left out. A Parquet file can have at most 100,000 rows; for a larger file, split it or use the [REST API](api.md) in several uploads. Typing or pasting into the text area afterwards replaces the loaded file.
 
 ## Mapping columns
 
@@ -63,6 +64,8 @@ Rows whose only errors are in fields with [Defer Errors](validation-and-lookups.
 ## Committing the import
 
 Click **Confirm import** to write the data. If some rows have errors, the button reads **Import *n* valid rows (skip *m* errors)**: the valid rows are imported and the rows with errors are skipped.
+
+To import all or nothing, tick **Load rows transactionally** before you confirm. If any row has an error, nothing is imported, and the button reads **Fix *m* errors to import transactionally** until the data is corrected and previewed again.
 
 - Rows that match an existing record (by unique key) **update** that record.
 - Rows with no match **create** new records.

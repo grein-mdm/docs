@@ -23,7 +23,7 @@ Transformations run in order as a chain — the output of one step becomes the i
 | Last word | Keep only the last word. | `"John Smith"` → `"Smith"` |
 | Unquote | Remove one pair of enclosing quotes or brackets: `"…"`, `'…'`, `[…]`, `(…)` or `<…>`. | `"\"hello\""` → `"hello"` |
 
-Transformations are applied whenever values come in: when records are created or edited in the web UI, when data is imported, and when data is written through the [REST API](api.md). Empty values are skipped, and so are amount and quantity values (which consist of two parts).
+Transformations are applied whenever values come in: when records are created or edited in the web UI, when data is imported, when data is written through the [REST API](api.md), and to values from [API lookups](#api-lookups) and [AI attribute extraction](ai-extraction.md). Empty values are skipped, and so are amount and quantity values (which consist of two parts).
 
 > [!TIP]
 > A hyphen that is part of a code is not treated as a minus sign by **Keep numeric**: `"INV-2024"` becomes `"2024"`, not `"-2024"`.
@@ -79,7 +79,7 @@ Dates must be valid calendar dates in `YYYY-MM-DD` format.
 
 ### Amount and quantity fields
 
-For amount and quantity fields you can set **Decimal Places**, which controls how many decimals are displayed. An amount needs a valid three-letter currency code (such as `USD`, `EUR` or `GBP`) and a numeric amount; a quantity needs a numeric value and a unit that belongs to the field's quantity type.
+For amount and quantity fields you can set **Decimal Places**, which controls how many decimals are displayed, and **Min Value** / **Max Value**. For an amount, Min and Max compare the number regardless of currency (no exchange rates are applied). For a quantity, they are in the field's conversion unit if one is set (see [Unit conversion](#unit-conversion)), and otherwise in the quantity type's SI unit (for example metres for distance); values in other units are converted before they are compared. An amount needs a valid three-letter currency code (such as `USD`, `EUR` or `GBP`) and a numeric amount; a quantity needs a numeric value and a unit that belongs to the field's quantity type.
 
 ### Other field types
 
@@ -140,7 +140,8 @@ API lookups automatically enrich records by calling an external web service when
 3. For each lookup, it takes the **trigger field** value from the submitted data. If the trigger field has no value, that lookup is skipped.
 4. It calls the configured URL, with the trigger value inserted into the URL template.
 5. It reads the JSON response and copies the mapped response values into entity fields.
-6. The enriched values are stored under the lookup's [result source](sources.md), and feed into the [merge](merging.md) like any other source.
+6. The values go through the target fields' [transformations](#transformations) and [validation rules](#validation-rules). A value that fails validation is skipped; the other values are still saved.
+7. The enriched values are stored under the lookup's [result source](sources.md), and feed into the [merge](merging.md) like any other source.
 
 Lookups run right after the record has been saved, before the response is returned, so a slow external service can delay the save by up to the lookup's timeout. A failed lookup — a timeout, an error status, or a response that isn't JSON — is skipped and does not undo the save. Lookup results never trigger further lookups (no cascading).
 

@@ -122,7 +122,7 @@ Custom field types are predefined, platform-wide types that enforce a specific f
 
 A `reference` field links each record to a record in another entity type — for example, an "Invoice" can reference the "Supplier" it was issued by.
 
-In the field's **Format** settings, choose the **Referenced Entity Type**, then choose a **Lookup field**: one of the unique fields of the referenced entity type. Users and integrations can then enter the lookup value (for example a supplier number) instead of an internal record ID, and Grein resolves it to the matching record. The referenced entity type therefore needs at least one unique field.
+In the field's **Format** settings, choose the **Referenced Entity Type**, then choose a **Lookup field**: one of the unique fields of the referenced entity type. Users and integrations can then enter the lookup value (for example a supplier number) instead of an internal record ID, and Grein resolves it to the matching record. A lookup field is required, so the referenced entity type needs at least one unique field: the form says so if it has none, and saving a reference field without a lookup field is refused.
 
 ## Soft references
 

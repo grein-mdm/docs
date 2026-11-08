@@ -72,7 +72,7 @@ If the AI model returns no usable result for an individual value, that value is 
 
 ## Where extracted values go
 
-Extracted values are written to the selected output fields in the **output source**, on the same record that the input value came from. Whenever the AI model returns a value for a field, it replaces that field's existing value in the output source. If the model can't determine a value (it returns nothing for that field), any existing value in the output source is left as it is.
+Extracted values are written to the selected output fields in the **output source**, on the same record that the input value came from. Extracted values go through the output fields' [transformations](validation-and-lookups.md#transformations) and [validation rules](validation-and-lookups.md#validation-rules) first. A value that fails validation is skipped and the existing value is kept. Otherwise, whenever the AI model returns a value for a field, it replaces that field's existing value in the output source. If the model can't determine a value (it returns nothing for that field), any existing value in the output source is left as it is.
 
 Because extracted values are ordinary source data, they become part of the golden record through [merging](merging.md), following each field's [survivorship rule](merging.md#survivorship-rules). Use source priority to decide how much weight AI-generated values get. For example, place your extraction source below sources that hold verified data, so that extracted values only fill gaps. The changes appear in each record's [history](viewing-and-editing.md#record-history), attributed to the user who started the run.
 
@@ -93,7 +93,7 @@ To reuse a configuration, pick it from the **Saved configuration** list, which s
 
 ## Limitations and things to keep in mind
 
-- **Data leaves the platform.** Every preview and run sends the input values to the external AI provider configured by your admin. Your workspace's [sensitivity labels](sensitivity.md) don't stop this, so check your policies before extracting from fields that hold personal or confidential information.
+- **Data leaves the platform.** Every preview and run sends the input values to the external AI provider configured by your admin. You can only choose entity types and fields at or below your own [sensitivity level](sensitivity.md), but anything you can see can be sent, so check your policies before extracting from fields that hold personal or confidential information.
 - **Results are AI-generated.** The model can misread, guess or leave out values. Always preview first, and check a sample of records in the output source after a run.
 - **Each extracted attribute is a single value.** For every output field, the AI model returns a single text, number or true/false value, or nothing. Simple field types such as `text`, `number`, `date` and `boolean` work best.
 - **Token usage costs money.** Previews and runs use tokens on your AI provider account, and any charges are billed by the provider. The token counts on the page help you estimate the cost. Rate limits set under **Settings > External AI Model** apply.
