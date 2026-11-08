@@ -26,6 +26,12 @@ For number, percent and date fields only. The merged value is the arithmetic mea
 
 The merged value is the middle value when all source values are sorted (with an even number of values, the higher of the two middle values). Unlike Average, this works with any field type and is more robust against outliers.
 
+### Changing a rule
+
+When you change a field's survivorship rule and the entity type has [auto-merge](#automatically) on, the existing golden records that have a value for the field are recalculated under the new rule in the background. Records whose merged value changes as a result count as changed for [incremental sync](api.md#incremental-sync) and the [OData feed](odata.md#loading-only-changed-records).
+
+With auto-merge off, the new rule is used the next time you [trigger a merge](#manually) for a record that has unmerged changes. Changing the source order on the Sources page doesn't recalculate existing golden records either: the new order is used for each record the next time one of its values changes.
+
 ## What is merged
 
 - Only **complete** records are merged — records that have a value for every unique key field. Incomplete records are left out until they are resolved through [data stewardship](stewardship.md#what-makes-a-record-incomplete). Entity types without unique fields are merged regardless.

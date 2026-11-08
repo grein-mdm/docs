@@ -73,8 +73,7 @@ Each company is one record, combined from whatever each source knows about it. C
 
 Source priority is only one way to resolve conflicts. Each field has its own **Survivorship Rule**, under **Data Processing** on the field's edit page: for example **Most Recent** for a phone number that changes often, or **Average** for a number that both systems estimate. See [Survivorship rules](../guide/merging.md#survivorship-rules).
 
-> [!NOTE]
-> A new survivorship rule or source order is used for each record the next time one of its values changes. Golden records that are already merged aren't recalculated straight away, so decide on the rules before you load large amounts of data.
+For example, edit **Employees**, open **Data Processing** and change the rule to **Average**. Because Company has auto-merge on, the existing golden records are recalculated in the background: a few seconds later, Nordlys Analytics has 44 employees (the average of 42 and 45, rounded to 0 decimals). Change the rule back to **Source Priority** when you're done, if you like.
 
 ## Next steps
 
