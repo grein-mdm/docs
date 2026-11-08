@@ -126,6 +126,8 @@ GET /api/v1/{entityTypeName}/export
 
 Downloads all matching records as an Apache Parquet file. Supports the same `source`, `since` and field-filter parameters as the list endpoint. If no records match, the endpoint returns `404 Not Found`.
 
+The file has the columns `_record_id`, `_created_at` and `_updated_at`, followed by one column per field, named after the field's machine name. Amount and unit values are written as text, currency first and unit last (`SEK 1500`, `12.5 kg`), and reference fields hold the referenced record's ID.
+
 ## Creating records
 
 ### Create a record

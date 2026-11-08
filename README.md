@@ -60,3 +60,7 @@ A typical setup follows these steps. The **Getting started** checklist on your w
 **Integrations**
 - [The REST API](guide/api.md)
 - [The OData Feed (Power BI, Fabric)](guide/odata.md)
+
+## Tutorials
+
+Start with [Your First Golden Record](tutorials/first-golden-record.md). The [tutorials page](tutorials/README.md) lists them all, including API quickstarts in Python, Node.js, PowerShell, C# and curl, Parquet, Power BI and Excel.
