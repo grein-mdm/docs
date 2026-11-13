@@ -87,6 +87,12 @@ Invitations, role changes, access level changes and removals are recorded in the
 
 A single user account can belong to multiple workspaces. Each workspace membership has its own role and sensitivity level — being an admin in one workspace does not grant any privileges in another.
 
+## Workspace maintenance
+
+The platform administrator can put a workspace under maintenance for a short time, for example to restore its data. While it is under maintenance, nobody can open it, including the workspace's own admins. Anyone who tries sees an **Under maintenance** page, sometimes with a note about when the workspace is expected back. In the workspace list it is marked **Under maintenance** and can't be selected. API keys and the OData feed are refused too (see [the REST API](api.md#maintenance)).
+
+If you were working in the workspace when maintenance started, your next click shows the maintenance page. Anything you had already saved is kept. Once maintenance ends, select **Try again** or open the workspace as usual.
+
 ---
 
 [← Back to overview](../README.md)

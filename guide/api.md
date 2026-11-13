@@ -263,6 +263,7 @@ The API uses standard HTTP status codes:
 | `415` | Unsupported media type: write requests must use `Content-Type: application/json` (uploads: `multipart/form-data`). |
 | `422` | Unprocessable: field validation errors, or a missing, unknown or reserved `source` when writing. |
 | `429` | Too many requests: rate limit exceeded. See [Rate limiting](#rate-limiting). |
+| `503` | Service unavailable: the workspace is under maintenance. See [Maintenance](#maintenance). |
 
 Error response format:
 
@@ -297,6 +298,16 @@ When the limit is exceeded, the API returns `429 Too Many Requests` with a `Retr
 ```
 
 Use `remaining` and `reset` to implement backoff in your integration. If no rate limit is set for the workspace, requests are not throttled and these headers are omitted.
+
+## Maintenance
+
+The platform administrator can put a workspace under maintenance for a short time, for example to restore its data. While it is under maintenance, every request with one of its API keys returns `503 Service Unavailable` with a `Retry-After` header (in seconds). The error message may end with a note from the administrator, such as when the workspace is expected back:
+
+```json
+{ "error": "This workspace is undergoing maintenance. Please try again later. Back by 14:00 CET." }
+```
+
+Nothing is written during this time, so an integration can safely retry the same request later. Treat `503` like `429`: wait at least `Retry-After` seconds before you try again.
 
 The [OData feed](odata.md) is not subject to this limit, so a Power BI refresh can't fail halfway through because it fetches many pages. Instead, each workspace can run at most two OData queries at a time; further requests wait their turn.
 

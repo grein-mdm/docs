@@ -114,6 +114,7 @@ Errors are returned as JSON in the OData format:
 | `405` | The request wasn't a `GET`: the feed is read-only. |
 | `406` | A response format other than JSON was requested. |
 | `501` | The query uses something the feed doesn't support (see above). |
+| `503` | The workspace is under maintenance (code `ServiceUnavailable`). Try again after the number of seconds in the `Retry-After` header. A scheduled refresh that runs during maintenance fails and succeeds again on its next run. |
 
 <a id="changes"></a>
 
