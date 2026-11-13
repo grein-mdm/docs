@@ -29,7 +29,7 @@ Click the filter icon in the search box to open the advanced filter panel. Click
 
 ## Inline editing
 
-If you have editor or admin access and are viewing the Manual entry source, you can click any cell in the grid to edit it. You can also move between cells with the arrow keys and start editing by pressing Enter or F2, or simply by typing. Press Enter or Tab (or click elsewhere) to finish editing a cell, or Escape to cancel. Changes are saved automatically a moment after you finish editing.
+If you have editor or admin access and are viewing the Manual entry source, you can click any cell in the grid to edit it. You can also move between cells with the arrow keys and start editing by pressing Enter or F2, or simply by typing. Press Enter or Tab (or click elsewhere) to finish editing a cell, or Escape to cancel. To clear a cell, select it and press Delete (or Backspace). Changes are saved automatically a moment after you finish editing.
 
 If a value fails validation, the cell is outlined in red — hover over it to see the error message — and the row is not saved until the problem is fixed.
 
