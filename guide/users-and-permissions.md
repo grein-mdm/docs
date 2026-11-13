@@ -52,7 +52,7 @@ Everything an editor can do, plus:
    - **Access Level** — the user's [sensitivity level](sensitivity.md). Defaults to Internal.
 4. Click **Send invite**.
 
-No invitation email is sent. Let the user know they have been invited: they gain access automatically the next time they sign in with **Sign in with Microsoft Entra** using that email address. Until then, the invitation is listed under **Pending invites** in the Users dialog, where you can **Revoke** it.
+No invitation email is sent. Let the user know they have been invited: they gain access automatically the next time they sign in with **Sign in with Microsoft Entra** using that email address. Until then, the invitation is listed under **Pending invites** in the Users dialog, where you can **Revoke** it. An invitation that hasn't been used within 30 days expires and disappears from the list; invite the user again if they still need access.
 
 If the user is already a member of another Grein workspace, the new workspace appears in their workspace list the next time they sign in.
 
@@ -75,6 +75,23 @@ Use the **Access Level** dropdown in the same user list. The change is saved imm
 ## Removing a user
 
 Click **Remove** next to a user in the user list and confirm. This revokes their access to the workspace. Their changes are preserved and remain attributed to them in the record history and [audit trail](audit.md).
+
+### What happens to a removed user's personal data
+
+When someone has been removed from every Grein workspace they belonged to, and hasn't signed in for 30 days, their account is anonymised. If they are added back to a workspace within those 30 days, nothing changes.
+
+Anonymising an account:
+
+- Removes their name, email address and Microsoft sign-in identity from Grein.
+- Shows them as **Former user #&lt;number&gt;** in record history, in place of their name.
+- Replaces their email address in the privileged action log with the same **Former user #&lt;number&gt;**, and removes the IP addresses of their own actions. The entries themselves stay, so the log still shows what happened and which actions were taken by the same person. An entry with the action `user_anonymised` records that this was done.
+
+If the person signs in again later, they start with a new, empty account.
+
+A person can also ask for their account to be anonymised straight away, without waiting 30 days. Remove them from your workspace first, then contact Grein support.
+
+> [!TIP]
+> If you need to keep a record of who a former user was, for example for an investigation, [export the privileged action log](audit.md) before the account is anonymised.
 
 You cannot remove the last remaining user of a workspace.
 
