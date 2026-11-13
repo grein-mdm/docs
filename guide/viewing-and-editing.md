@@ -66,6 +66,8 @@ If other records reference this one (through [reference fields](entities-and-fie
 
 Deleting from the grid removes the record's Manual entry values. If no other source has values for the record, the record itself is deleted. If other sources still have values for it, the record remains, with their data.
 
+A deleted record's earlier values stay in its change history until they're [purged](audit.md#retention). To remove a record and all of its history at once, for example when a person asks for their data to be erased, [delete it permanently](#permanently-deleting-a-record).
+
 ## Record history
 
 Click a record's **ID number** (the `#` column) to view its history. The history page shows:
@@ -79,6 +81,29 @@ In the data grid, records that have been merged are marked with a green left bor
 
 > **Screenshot:** A record's history page with the merged values at the top and the change history grouped by source.
 > <!-- screenshot: images/viewing-and-editing-history.png -->
+
+## Permanently deleting a record
+
+When a person asks for their personal data to be erased (the "right to be forgotten" under the GDPR), a normal delete isn't enough, because the record's earlier values stay in its history. Instead, open the record's history page and click **Permanently delete…**. Only workspace admins can do this; for other users the button is greyed out.
+
+The dialog shows what will be removed. Type the record number to confirm. This removes, for good:
+
+- The record, with its values from every source and its entire change history.
+- Any duplicate records that were merged into it, and their history.
+- Pending duplicate and reference suggestions involving the record.
+
+Records that reference the deleted record are kept, with the reference field emptied, much like **Clear references** above. Their change history isn't changed.
+
+The [privileged action log](audit.md#privileged-action-log) records that the record was permanently deleted, by whom and when, but none of its values.
+
+> [!WARNING]
+> Permanent deletion can't be undone. Copies of the data that are outside Grein, such as exports, or systems that sync from the API or OData feed, aren't affected. Remove the person's data there separately.
+
+> [!NOTE]
+> Integrations that load changes incrementally don't see deleted records, permanently deleted or not. Records whose reference was emptied do count as changed, so incremental loads pick them up.
+
+> **Screenshot:** The Permanently delete dialog, with the impact summary and the record number confirmation.
+> <!-- screenshot: images/viewing-and-editing-permanent-delete.png -->
 
 ## Exporting data
 
