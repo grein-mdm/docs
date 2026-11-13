@@ -62,7 +62,7 @@ This section is not available for amount and quantity fields.
 
 ### Format
 
-- **Default Value** — pre-filled when creating a new record through the web UI form. Not available for amount and quantity fields.
+- **Default Value** — pre-filled when creating a new record through the web UI form. Not available for amount and quantity fields; for those, an admin can set a workspace-wide [default currency and units](viewing-and-editing.md#default-currency-and-units) instead.
 - **Validation Rules** — constraints that depend on the field type, such as minimum/maximum length or a regex pattern for text, minimum/maximum values and decimal places for numbers, the earliest/latest date for dates, or the list of allowed values for enum fields. See [Validation Rules](validation-and-lookups.md#validation-rules).
 - **Convert incoming values to** (quantity fields only) — automatically convert all incoming values to the selected unit.
 

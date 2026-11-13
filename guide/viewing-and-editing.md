@@ -35,6 +35,14 @@ If a value fails validation, the cell is outlined in red — hover over it to se
 
 The grid has an editor for each field type: text and number inputs, dates typed as `YYYY-MM-DD`, checkboxes for booleans, dropdowns for enum fields, reference fields and custom list types, text inputs with suggestions for lookup types (such as countries and currencies), amount fields (currency + value) and quantity fields (value + unit).
 
+### Default currency and units
+
+An admin can choose a default currency, and a default unit for each kind of quantity (for example `ft` for distance or `lb` for mass), under **Settings → Defaults**. When you start editing an empty amount or quantity cell, the default currency or unit is already filled in. The same applies to the **New record** form. For an empty amount cell, the cursor starts in the currency with the default selected: type a code to replace it, or press Tab to move to the amount. If you start typing a digit instead, it goes straight into the amount.
+
+The default is only a suggestion. You can choose another currency or unit, and nothing is saved until you enter a number. Existing values, imports and the API are not affected. The defaults apply to the whole workspace, and the currencies and units to choose from are the same ones that amount and quantity fields accept.
+
+> **Screenshot:** The Defaults dialog in Settings, with a currency selected and a default unit chosen for a few quantity types.
+
 Edits through the grid are saved to the Manual entry source. Fields you don't have [sensitivity clearance](sensitivity.md) to see are not shown, and their values are left unchanged.
 
 ## Creating a record
