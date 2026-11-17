@@ -11,7 +11,7 @@ Every workspace comes with two built-in sources that cannot be removed:
 
 ## Creating a source
 
-Navigate to **Sources** under **Configure** in the sidebar (admin only). Under **Add source**, enter a display name (e.g. "ERP System") and a slug (e.g. `erp_system`) for the new source, then click **Add source**. New sources are added at the bottom of the priority order.
+Navigate to **Sources** under **Configure** in the sidebar (admin only). Under **Add source**, enter a display name (e.g. "ERP System"). A slug is suggested as you type (`erp_system`); keep it or set your own, then click **Add source**. New sources are added at the bottom of the priority order.
 
 The slug identifies the source in the [REST API](api.md) and must start with a letter and contain only lowercase letters, digits, and underscores. Each slug can only be used once — this includes sources that have been removed, so a removed source's slug can't be reused.
 
