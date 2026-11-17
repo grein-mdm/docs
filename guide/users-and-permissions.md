@@ -104,6 +104,14 @@ Invitations, role changes, access level changes and removals are recorded in the
 
 A single user account can belong to multiple workspaces. Each workspace membership has its own role and sensitivity level — being an admin in one workspace does not grant any privileges in another.
 
+## Creating a workspace
+
+When you sign in for the first time and aren't a member of any workspace, Grein asks you to create one. If you already belong to one, you can create another with **+ Create new workspace** in the workspace list. Give it a name, and you become its admin.
+
+If you were given a promo code, enter it in **Promo code (optional)**. The code puts the new workspace on the plan it was made for. A code may be limited to a number of workspaces or have an expiry date; if it's no longer valid, you'll see a message, and you can try again or leave the field empty to start on the Free plan. After 10 wrong codes, you have to wait 15 minutes before you can try another.
+
+A code only applies when a workspace is created. If the workspace later subscribes to a plan and cancels, or is deleted and restored, it moves to the Free plan like any other workspace.
+
 ## Deleting a workspace
 
 An admin can delete the workspace under **Settings**, in the **Danger Zone** section, with **Delete workspace…**.
