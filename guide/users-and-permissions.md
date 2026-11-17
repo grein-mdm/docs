@@ -109,13 +109,11 @@ A single user account can belong to multiple workspaces. Each workspace membersh
 An admin can delete the workspace under **Settings**, in the **Danger Zone** section, with **Delete workspace…**.
 
 - Everyone loses access immediately, including API keys and the OData feed, and the workspace disappears from everyone's workspace list.
+- The subscription, if there is one, is cancelled immediately, and the workspace moves to the Free plan.
 - Every admin of the workspace gets an email saying who deleted it and when it will be permanently deleted.
 - After **7 days**, the workspace and all its data are permanently deleted. This can't be undone.
 
-If the workspace was deleted by mistake, reply to that email before the 7 days are up, and the workspace will be restored as it was.
-
-> [!NOTE]
-> Deleting the workspace doesn't cancel its subscription. Cancel it under **Settings** first.
+If the workspace was deleted by mistake, reply to that email before the 7 days are up, and the workspace will be restored with all its data. It's restored on the Free plan; subscribe again under **Settings** to get your previous plan back.
 
 ## Workspace maintenance
 
