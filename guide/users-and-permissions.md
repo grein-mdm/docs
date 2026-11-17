@@ -39,7 +39,7 @@ Everything an editor can do, plus:
 - Create and manage [API keys](api-keys.md).
 - Configure [API lookups](validation-and-lookups.md#api-lookups).
 - Trigger [merges](merging.md) from the data grid.
-- Change workspace settings: branding, the external AI model, billing, [audit exports](audit.md), purging history data, and deactivating the workspace.
+- Change workspace settings: branding, the external AI model, billing, [audit exports](audit.md), purging history data, and [deleting the workspace](#deleting-a-workspace).
 
 ## Inviting a user
 
@@ -103,6 +103,19 @@ Invitations, role changes, access level changes and removals are recorded in the
 ## Multiple workspaces
 
 A single user account can belong to multiple workspaces. Each workspace membership has its own role and sensitivity level — being an admin in one workspace does not grant any privileges in another.
+
+## Deleting a workspace
+
+An admin can delete the workspace under **Settings**, in the **Danger Zone** section, with **Delete workspace…**.
+
+- Everyone loses access immediately, including API keys and the OData feed, and the workspace disappears from everyone's workspace list.
+- Every admin of the workspace gets an email saying who deleted it and when it will be permanently deleted.
+- After **7 days**, the workspace and all its data are permanently deleted. This can't be undone.
+
+If the workspace was deleted by mistake, reply to that email before the 7 days are up, and the workspace will be restored as it was.
+
+> [!NOTE]
+> Deleting the workspace doesn't cancel its subscription. Cancel it under **Settings** first.
 
 ## Workspace maintenance
 

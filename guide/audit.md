@@ -29,7 +29,7 @@ Security-relevant operations made in the web interface are logged separately. En
 | **authorization** | User invited, invitation revoked, user removed, role changed, sensitivity level changed. |
 | **api_key** | API key created, rotated, enabled, disabled, deleted. |
 | **schema** | Entity type created, updated, deactivated, activated, deleted. Field created, updated, removed. Source created, deleted. |
-| **config** | AI settings updated or removed, subscription cancelled, workspace deactivated. |
+| **config** | AI settings updated or removed, subscription cancelled, workspace deleted. |
 | **data** | Data purged, record permanently deleted. |
 | **privacy** | A former user's account anonymised (logged by the system, without a user). |
 
