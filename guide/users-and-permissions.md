@@ -52,7 +52,7 @@ Everything an editor can do, plus:
    - **Access Level** — the user's [sensitivity level](sensitivity.md). Defaults to Internal.
 4. Click **Send invite**.
 
-No invitation email is sent. Let the user know they have been invited: they gain access automatically the next time they sign in with **Sign in with Microsoft Entra** using that email address. Until then, the invitation is listed under **Pending invites** in the Users dialog, where you can **Revoke** it. An invitation that hasn't been used within 30 days expires and disappears from the list; invite the user again if they still need access.
+Grein emails the user an invitation, with your name, the workspace name, their role and a link that signs them in and opens the workspace. The email can take a minute or two to arrive. They gain access the next time they sign in with **Sign in with Microsoft Entra** using that email address, whether through the link or not. Until then, the invitation is listed under **Pending invites** in the Users dialog, where you can **Revoke** it. An invitation that hasn't been used within 30 days expires and disappears from the list; invite the user again if they still need access.
 
 If the user is already a member of another Grein workspace, the new workspace appears in their workspace list the next time they sign in.
 
