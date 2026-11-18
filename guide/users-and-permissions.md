@@ -123,6 +123,21 @@ An admin can delete the workspace under **Settings**, in the **Danger Zone** sec
 
 If the workspace was deleted by mistake, reply to that email before the 7 days are up, and the workspace will be restored with all its data. It's restored on the Free plan; subscribe again under **Settings** to get your previous plan back.
 
+## Inactive workspaces
+
+A workspace that nobody uses for a long time is deleted. Any of these counts as using it:
+
+- anyone in the workspace, with any role, opening it in Grein
+- a request with one of its API keys, to the [REST API](api.md) or the [OData feed](odata.md)
+
+Requests that are refused, for example with a disabled API key, don't count.
+
+When a workspace hasn't been used for that long, every admin of the workspace gets an email saying when it was last used. To keep the workspace, open it (the email has a link) or make a request with one of its API keys within **7 days**. Using it in any of the ways above cancels the warning, and the clock starts over.
+
+If nobody uses it within those 7 days, the workspace is deleted in the same way as [when an admin deletes it](#deleting-a-workspace): everyone loses access at once, the admins get another email, and the workspace and all its data are permanently deleted 7 days after that. To keep it at that point, reply to that email before then.
+
+Workspaces with an active subscription are never deleted for inactivity.
+
 ## Workspace maintenance
 
 The platform administrator can put a workspace under maintenance for a short time, for example to restore its data. While it is under maintenance, nobody can open it, including the workspace's own admins. Anyone who tries sees an **Under maintenance** page, sometimes with a note about when the workspace is expected back. In the workspace list it is marked **Under maintenance** and can't be selected. API keys and the OData feed are refused too (see [the REST API](api.md#maintenance)).
