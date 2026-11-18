@@ -28,9 +28,9 @@ Security-relevant operations made in the web interface are logged separately. En
 |---|---|
 | **authorization** | User invited, invitation revoked, user removed, role changed, sensitivity level changed. |
 | **api_key** | API key created, rotated, enabled, disabled, deleted. |
-| **schema** | Entity type created, updated, deactivated, activated, deleted. Field created, updated, removed. Source created, deleted. |
-| **config** | AI settings updated or removed, subscription cancelled, workspace deleted. |
-| **data** | Data purged, record permanently deleted. |
+| **schema** | Entity type created, updated, deactivated, activated, deleted. Field created, updated, removed, reordered. Source created, deleted. |
+| **config** | AI settings updated or removed, branding changed, default currency and units changed, match threshold changed, subscription cancelled, workspace deleted. |
+| **data** | Data purged, records merged by hand, record permanently deleted, records that referenced a deleted record deleted or cleared. |
 | **privacy** | A former user's account anonymised (logged by the system, without a user). |
 
 Each log entry records:
@@ -54,7 +54,7 @@ Go to **Settings > Audit** and click **Export**. The **Audit Exports** dialog ha
 
 Both have optional **From** and **To** dates; both dates are included in the export. Leave them blank to export everything. Rows are sorted newest first, and timestamps are in ISO 8601 format in UTC (for example `2026-04-05T14:23:01Z`).
 
-The change history CSV has these columns: `Timestamp (UTC)`, `User ID`, `Entity Type`, `Record ID`, `Field`, `Field Name` (the machine name), `Source`, and one value column per kind of value: `Text Value`, `Number Value`, `Date Value` and `Bool Value`. Only the columns that fit the field type are filled in; amount and unit fields use both the text column (currency or unit) and the number column. `User ID` is the user's numeric ID.
+The change history CSV has these columns: `Timestamp (UTC)`, `User ID`, `Entity Type`, `Record ID`, `Field`, `Field Name` (the machine name), `Source`, and one value column per kind of value: `Text Value`, `Number Value`, `Date Value` and `Bool Value`. Only the columns that fit the field type are filled in; amount and unit fields use both the text column (currency or unit) and the number column. `User ID` is the user's numeric ID. The export holds only the fields your [access level](sensitivity.md) lets you see.
 
 The privileged action log CSV has these columns: `Timestamp (UTC)`, `User`, `Category`, `Action`, `Target Type`, `Target ID`, `Detail` and `IP Address`.
 

@@ -77,7 +77,7 @@ Returns a paginated list of records. Supports the following query parameters:
 | `source` | `merged` | Which source's values to return. With a source other than `merged`, only records that have values from that source are listed. An unknown source name returns `400`. |
 | `since` | *none* | ISO 8601 timestamp. Only returns records created or changed after this time. See [Incremental sync](#incremental-sync). |
 
-**Field filtering:** any other query parameter is treated as a filter on the field with that machine name. For example, `?country=US&status=active` returns only records where the `country` field equals "US" and the `status` field equals "active". Filters are exact matches. Dates are written as `YYYY-MM-DD` and booleans as `true`/`false` (or `1`/`0`). On an amount field the filter matches the currency code, and on a unit field it matches the unit. An unknown field name, a field outside the key's clearance, or a value that doesn't fit the field type returns `400 Bad Request`.
+**Field filtering:** any other query parameter is treated as a filter on the field with that machine name. For example, `?country=US&status=active` returns only records where the `country` field equals "US" and the `status` field equals "active". Filters are exact matches. Dates are written as `YYYY-MM-DD` and booleans as `true`/`false` (or `1`/`0`). A percent field is filtered on the percentage as the API returns it: `?rate=12.5` for 12.5%. On an amount field the filter matches the currency code, and on a unit field it matches the unit. An unknown field name, a field outside the key's clearance, or a value that doesn't fit the field type returns `400 Bad Request`.
 
 Response format:
 
@@ -151,7 +151,7 @@ Returns `201 Created` with the new record, including its `id`. The values in the
 
 Amount and unit fields take an object, for example `{ "currency": "EUR", "amount": 99.5 }` or `{ "unit": "kg", "value": 12.5 }`. A reference field accepts either the referenced record's ID or its unique key value, for example the referenced product's SKU.
 
-[Transformations and validation rules](validation-and-lookups.md) are applied as in the web interface. If a value fails validation, the request returns `422` with a map of field errors, unless the field is set to [defer validation errors](validation-and-lookups.md#deferred-validation-errors).
+[Transformations and validation rules](validation-and-lookups.md) are applied as in the web interface. If a value fails validation, the request returns `422` with a map of field errors, unless the field is set to [defer validation errors](validation-and-lookups.md#deferred-validation-errors). The unique key is checked too, also when another field's error is deferred.
 
 ### Upsert (create or update)
 
@@ -163,7 +163,7 @@ Creates a new record or updates an existing one, matched by the entity type's [u
 
 A single object returns `200 OK` (updated) or `201 Created` (created) with the record.
 
-You can also send an **array** of objects to upsert many records in one call. Each row is processed on its own, and the response is an array with one result per row, in the same order: either the record, or an object with `error` or `errors` for a row that failed. The status is `200 OK` when every row succeeded and `207 Multi-Status` when at least one failed. All rows are written to the same source: give it as a `?source=` query parameter or in the first object.
+You can also send an **array** of objects to upsert many records in one call. Each row is processed on its own, and the response is an array with one result per row, in the same order: either the record, or an object with `error` or `errors` for a row that failed. The status is `200 OK` when every row succeeded and `207 Multi-Status` when at least one failed. Each row is written to the source in its own `source` field. A row without one uses the `?source=` query parameter, or else the first object's source.
 
 This is the recommended endpoint for data integrations, as it handles both new and existing records in a single call.
 

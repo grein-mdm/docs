@@ -74,7 +74,7 @@ If a user's access level is lower than the entity type's sensitivity, the entity
 - It does not appear in the data stewardship overview.
 - It does not appear in the entity type dropdown when importing data.
 - [Natural language query](ai-query.md) cannot use it.
-- Opening its pages directly (for example from a bookmarked link) sends the user back to the entity types list.
+- Opening its pages directly (for example from a bookmarked link) shows an "Access denied" page. This includes its fields' settings, so an admin needs a high enough access level to manage it.
 
 The same applies to API keys: the entity type is left out of the API's schema listing and the OData feed, and requests for it return `403 Forbidden`.
 

@@ -70,7 +70,7 @@ To import all or nothing, tick **Load rows transactionally** before you confirm.
 - Rows that match an existing record (by unique key) **update** that record.
 - Rows with no match **create** new records.
 
-After the import, you are taken to the entity type's data grid, showing the destination source.
+After the import, you are taken to the entity type's data grid, showing the destination source, with a summary of how many records were created, updated, unchanged and skipped.
 
 An import is refused if it could exceed your plan's record limit or storage limit. The pasted data is kept for 30 minutes after the first preview; if you wait longer than that, preview it again before importing.
 
