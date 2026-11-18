@@ -281,7 +281,7 @@ The API uses standard HTTP status codes:
 
 | Status | Meaning |
 |---|---|
-| `400` | Bad request: unknown filter field, malformed filter value, invalid `since` value, unknown `source` when reading, or no file in an upload. |
+| `400` | Bad request: a request body that isn't valid JSON, unknown filter field, malformed filter value, invalid `since` value, unknown `source` when reading, or no file in an upload. |
 | `401` | Unauthorised: missing, invalid or disabled API key. |
 | `403` | Forbidden: the workspace doesn't have API access, the key's sensitivity clearance doesn't cover any of the entity type's fields, the entity type is deactivated (read-only), or a plan limit on storage or records has been reached. |
 | `404` | Not found: the entity type or record doesn't exist. |
