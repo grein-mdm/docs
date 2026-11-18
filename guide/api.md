@@ -2,7 +2,7 @@
 
 The REST API lets you read, write and manage records programmatically. All endpoints are under `/api/v1` and require an [API key](api-keys.md). The API is available to workspaces whose plan includes API access.
 
-Interactive API documentation with request and response examples is available at `/api/docs` (Swagger UI).
+Interactive API documentation with request and response examples is available at `/api/docs` (Swagger UI). The API is also described in OpenAPI format, for code generators and AI coding tools: see [OpenAPI descriptions](#openapi-descriptions).
 
 To load data into Power BI, Microsoft Fabric or other reporting tools, use the read-only [OData feed](odata.md) instead. It uses the same API keys.
 
@@ -17,6 +17,32 @@ Authorization: Bearer mdm_your_api_key_here
 All `POST` and `PUT` requests must send `Content-Type: application/json`. The only exception is [file upload](#upload-a-file), which uses `multipart/form-data`.
 
 A missing, unknown or disabled key returns `401 Unauthorized`. A valid key for a workspace that doesn't have API access returns `403 Forbidden`.
+
+## OpenAPI descriptions
+
+The API is described in [OpenAPI 3.0](https://spec.openapis.org/oas/v3.0.3) format, which code generators (such as OpenAPI Generator or NSwag), API tools (such as Postman) and AI coding assistants can read. There are two descriptions:
+
+| Address | Key | What it describes |
+|---|---|---|
+| `/api/openapi.json` | Not needed | The API in general. Records are shown as free-form objects, since their fields depend on the workspace. This is what `/api/docs` shows. |
+| `/api/v1/openapi.json` | Required | Your workspace's API. Every entity type has its own endpoints (`/api/v1/company`, `/api/v1/company/{recordId}`, …) and typed schemas of its fields. |
+
+**Use the workspace description** when you generate code or ask an AI tool to build an integration. In it:
+
+- Each entity type has a record schema (for example `CompanyRecord`) with one property per field, typed after the field: amounts and units as objects, enum fields with their allowed values, dates, numbers and booleans as such. Lookup fields such as country refer to a list of the valid codes (for example `CountryCode`).
+- The request schemas for creating, updating and upserting records (`CompanyCreate`, `CompanyUpdate`, `CompanyUpsert`) mark the fields that must be present: the required fields when creating, and the unique fields when upserting. The upsert endpoint is left out for entity types without a unique field.
+- The list and export endpoints have one filter parameter per field.
+- `source` lists your workspace's sources, and for writes only the ones the API can write to.
+- Field descriptions explain how values are written, for example that a reference field takes the referenced record's ID or its unique key value, and that a unit field's value is converted to the field's unit.
+
+Like the rest of the API, the workspace description only includes the entity types and fields within the key's [sensitivity clearance](sensitivity.md). It reflects the data model when you fetch it: fetch it again after adding or changing entity types, fields or sources.
+
+```bash
+curl -s "https://<your Grein address>/api/v1/openapi.json" \
+  -H "Authorization: Bearer $GREIN_API_KEY" -o grein-openapi.json
+```
+
+See [Building Integrations with AI Tools](ai-integrations.md) for how to use it with an AI coding assistant.
 
 ## Schema endpoints
 

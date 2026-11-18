@@ -1,0 +1,51 @@
+# Grein
+
+> Grein is a multi-tenant master data management (MDM) platform. Each workspace defines entity types (e.g. company, product) with typed fields; records get values from several sources (e.g. crm, erp), which Grein merges into golden records (the `merged` source). Data is read and written through a REST API (`/api/v1`, API key as Bearer token) and read by reporting tools through an OData v4 feed (`/odata/v1`).
+
+Notes for AI coding assistants building integrations:
+
+- Each workspace has its own, typed OpenAPI 3.0 description at `GET https://<grein address>/api/v1/openapi.json` (needs an API key). It lists the workspace's entity types, fields, data types, required and unique fields and sources. Prefer it over guessing field names. A generic description, without workspace fields, is at `/api/openapi.json`.
+- Write to the integration's own source, usually with the batch upsert `PUT /api/v1/{entityType}` (matched on the entity type's unique fields). `merged` and `manual` can't be written through the API.
+- Read changes with `?since=` and follow `page` up to `totalPages`. On 429 or 503, wait `Retry-After` seconds and retry.
+- Read the API key from the environment; never hard-code it.
+
+## API and integrations
+
+- [The REST API](https://raw.githubusercontent.com/grein-mdm/docs/main/guide/api.md): endpoints, parameters, value formats, upsert, incremental sync, errors, rate limits, OpenAPI descriptions
+- [Building integrations with AI tools](https://raw.githubusercontent.com/grein-mdm/docs/main/guide/ai-integrations.md): how to give an AI assistant what it needs, and keep data safe
+- [Configuring API keys](https://raw.githubusercontent.com/grein-mdm/docs/main/guide/api-keys.md): creating keys, sensitivity levels, rotation
+- [The OData feed](https://raw.githubusercontent.com/grein-mdm/docs/main/guide/odata.md): read-only OData v4 for Power BI, Fabric and Excel; $filter, $select, paging
+
+## Concepts
+
+- [Master data management terminology](https://raw.githubusercontent.com/grein-mdm/docs/main/guide/terminology.md): golden record, survivorship, sources and other terms
+- [Entity types and fields](https://raw.githubusercontent.com/grein-mdm/docs/main/guide/entities-and-fields.md): field types, required and unique fields, references, retention
+- [Sources](https://raw.githubusercontent.com/grein-mdm/docs/main/guide/sources.md): where data comes from, source priority, the merged and manual sources
+- [Merging](https://raw.githubusercontent.com/grein-mdm/docs/main/guide/merging.md): how values from sources are merged, survivorship rules
+- [Validation, transformations and API lookups](https://raw.githubusercontent.com/grein-mdm/docs/main/guide/validation-and-lookups.md): how values are cleaned and checked on write, deferred validation errors
+- [Sensitivity labels](https://raw.githubusercontent.com/grein-mdm/docs/main/guide/sensitivity.md): which fields users and API keys can see
+
+## Tutorials
+
+- [API quickstart: curl](https://raw.githubusercontent.com/grein-mdm/docs/main/tutorials/api-quickstart-curl.md)
+- [API quickstart: Python](https://raw.githubusercontent.com/grein-mdm/docs/main/tutorials/api-quickstart-python.md)
+- [API quickstart: Node.js](https://raw.githubusercontent.com/grein-mdm/docs/main/tutorials/api-quickstart-nodejs.md)
+- [API quickstart: PowerShell](https://raw.githubusercontent.com/grein-mdm/docs/main/tutorials/api-quickstart-powershell.md)
+- [API quickstart: C#](https://raw.githubusercontent.com/grein-mdm/docs/main/tutorials/api-quickstart-csharp.md)
+- [Keeping another system in sync](https://raw.githubusercontent.com/grein-mdm/docs/main/tutorials/keeping-another-system-in-sync.md): incremental sync with `since`
+- [Scheduling a nightly file upload](https://raw.githubusercontent.com/grein-mdm/docs/main/tutorials/scheduling-a-nightly-upload.md): bulk loads through the upload endpoint
+- [Analysing a Parquet export](https://raw.githubusercontent.com/grein-mdm/docs/main/tutorials/analysing-a-parquet-export.md)
+- [Power BI with incremental refresh](https://raw.githubusercontent.com/grein-mdm/docs/main/tutorials/power-bi-incremental-refresh.md)
+- [Loading Grein data into a Fabric lakehouse](https://raw.githubusercontent.com/grein-mdm/docs/main/tutorials/loading-into-a-fabric-lakehouse.md)
+
+## Optional
+
+- [Importing data](https://raw.githubusercontent.com/grein-mdm/docs/main/guide/importing-data.md): importing files through the web interface
+- [Viewing and editing data](https://raw.githubusercontent.com/grein-mdm/docs/main/guide/viewing-and-editing.md): the data grid and record pages
+- [The data dictionary](https://raw.githubusercontent.com/grein-mdm/docs/main/guide/data-dictionary.md): field slugs and descriptions in the web interface
+- [Data stewardship](https://raw.githubusercontent.com/grein-mdm/docs/main/guide/stewardship.md): duplicates, incomplete records, reference candidates
+- [Users and permissions](https://raw.githubusercontent.com/grein-mdm/docs/main/guide/users-and-permissions.md): roles and access levels
+- [Auditing](https://raw.githubusercontent.com/grein-mdm/docs/main/guide/audit.md): change history and audit logs
+- [AI attribute extraction](https://raw.githubusercontent.com/grein-mdm/docs/main/guide/ai-extraction.md)
+- [Natural language query](https://raw.githubusercontent.com/grein-mdm/docs/main/guide/ai-query.md)
+- [All tutorials](https://raw.githubusercontent.com/grein-mdm/docs/main/tutorials/README.md)

@@ -59,7 +59,11 @@ A typical setup follows these steps. The **Getting started** checklist on your w
 
 **Integrations**
 - [The REST API](guide/api.md)
+- [Building Integrations with AI Tools](guide/ai-integrations.md)
 - [The OData Feed (Power BI, Fabric)](guide/odata.md)
+
+> [!TIP]
+> Building an integration with an AI coding assistant? Point it to [`llms.txt`](llms.txt), an index of this documentation for AI tools, and to your workspace's [OpenAPI description](guide/api.md#openapi-descriptions).
 
 ## Tutorials
 
