@@ -22,7 +22,7 @@ The history is also visible per record in the web interface: click a record's ID
 
 ## Privileged action log
 
-Security-relevant operations made in the web interface are logged separately. Entries are only ever added; they can't be edited or removed, except that a former user's email address is replaced by a pseudonym when their account is [anonymised](users-and-permissions.md#what-happens-to-a-removed-users-personal-data). The following events are tracked:
+Security-relevant operations made in the web interface are logged separately. Entries are only ever added; they can't be edited or removed, except that a former user's email address is replaced by a pseudonym when their account is [anonymised](users-and-permissions.md#what-happens-to-a-removed-users-personal-data), and so is the email address of someone whose [invitation](users-and-permissions.md#inviting-a-user) ended without being used. The following events are tracked:
 
 | Category | Events |
 |---|---|
@@ -31,7 +31,7 @@ Security-relevant operations made in the web interface are logged separately. En
 | **schema** | Entity type created, updated, deactivated, activated, deleted. Field created, updated, removed, reordered. Source created, deleted. |
 | **config** | AI settings updated or removed, branding changed, default currency and units changed, match threshold changed, subscription cancelled, workspace deleted. |
 | **data** | Data purged, records merged by hand, record permanently deleted, records that referenced a deleted record deleted or cleared. |
-| **privacy** | A former user's account anonymised (logged by the system, without a user). |
+| **privacy** | A former user's account anonymised, or the email address of someone who never accepted their invitation replaced (logged by the system, without a user). |
 
 Each log entry records:
 
@@ -66,13 +66,14 @@ Audit exports are restricted to **admin** users, like the rest of the Settings p
 
 The data change history is affected by two retention mechanisms:
 
-- **Manual purge.** Under **Settings > Data storage**, click **Purge…**. Enter how many days of history to keep. Change history older than that is permanently deleted, together with deleted records, removed fields and other deleted data older than the same period. Enter 0 to delete all history and deleted data. A purge is recorded in the privileged action log.
+- **Manual purge.** Under **Settings > Data storage**, click **Purge…**. Enter how many days of history to keep. Change history older than that is permanently deleted, together with deleted records, removed fields and other deleted data older than the same period. [API lookups](validation-and-lookups.md#api-lookups) and [attribute extraction](ai-extraction.md) settings that use a purged entity type, field or source are deleted with it. Enter 0 to delete all history and deleted data. A purge is recorded in the privileged action log.
 - **Automatic retention policies.** When a [retention period](entities-and-fields.md#retention-policies) is set on an entity type or field, the platform applies it automatically once a day. Values that haven't been changed within the period are removed, together with their change history. If both the field and its entity type have a period, the shorter one applies. A record is removed only once it has no values left. Retention runs are not recorded in the privileged action log.
 
 The privileged action log is **not affected by either mechanism**. Its entries are kept indefinitely, with two exceptions that remove personal data but keep the entries themselves:
 
 - **IP addresses** are removed from entries older than 12 months. The rest of the entry (who did what, and when) stays.
 - When a user's account is **anonymised**, their email address is replaced by a pseudonym and the IP addresses of their actions are removed. See [what happens to a removed user's personal data](users-and-permissions.md#what-happens-to-a-removed-users-personal-data).
+- When an **invitation ends without being used** (it was revoked or expired) and the person hasn't signed in or been invited again within 30 days, their email address in the entries for the invitation is replaced by a pseudonym. See [inviting a user](users-and-permissions.md#inviting-a-user).
 
 > [!TIP]
 > To keep IP addresses for longer, for example for your own security records, export the privileged action log regularly.

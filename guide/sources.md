@@ -50,7 +50,11 @@ Data lands in a source in several ways:
 
 ## Removing a source
 
-You can remove any source you have created by clicking **Remove** next to it on the Sources page. The source will no longer appear in the UI or be available for new writes, but existing data is preserved.
+You can remove any source you have created by clicking **Remove** next to it on the Sources page. The source will no longer appear in the UI or be available for new writes. Its existing data is kept until it's [purged](audit.md#retention), but stops counting right away:
+
+- Golden records no longer use its values. Every record it had values for is merged again from the remaining sources: right away for entity types with auto-merge, otherwise the next time you merge.
+- A record that no other source has values for is deleted.
+- Its values are no longer used to find duplicates or references, and no longer appear in stewardship or [natural language queries](ai-query.md). [Soft reference](entities-and-fields.md#soft-references) fields that write their matches to it stop writing them.
 
 > [!WARNING]
 > A source cannot be removed if it is used by an [API lookup](validation-and-lookups.md#api-lookups). Delete the lookup first.

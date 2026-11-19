@@ -54,6 +54,8 @@ Everything an editor can do, plus:
 
 Grein emails the user an invitation, with your name, the workspace name, their role and a link that signs them in and opens the workspace. The email can take a minute or two to arrive. They gain access the next time they sign in with **Sign in with Microsoft Entra** using that email address, whether through the link or not. Until then, the invitation is listed under **Pending invites** in the Users dialog, where you can **Revoke** it. An invitation that hasn't been used within 30 days expires and disappears from the list; invite the user again if they still need access.
 
+The invitation, and its revocation if you revoke it, are recorded in the [privileged action log](audit.md#privileged-action-log) with the invited email address. If the invitation ends without being used (it is revoked or expires), and the person neither signs in nor is invited to any Grein workspace again within 30 days, that email address is replaced in the log by a pseudonym, **invitee #&lt;number&gt;**. The entries themselves stay. An entry with the action `invitee_anonymised` records that this was done. If the person does sign in, their address is handled like any other user's (see [what happens to a removed user's personal data](#what-happens-to-a-removed-users-personal-data)).
+
 If the user is already a member of another Grein workspace, the new workspace appears in their workspace list the next time they sign in.
 
 Your plan may limit the number of users in a workspace. When the limit is reached, inviting another user shows an error asking you to upgrade.
@@ -106,7 +108,7 @@ A single user account can belong to multiple workspaces. Each workspace membersh
 
 ## Creating a workspace
 
-When you sign in for the first time and aren't a member of any workspace, Grein asks you to create one. If you already belong to one, you can create another with **+ Create new workspace** in the workspace list. Give it a name, and you become its admin.
+When you sign in for the first time and aren't a member of any workspace, Grein asks you to create one. If you already belong to one, you can create another with **+ Create new workspace** in the workspace list. Give it a name, and you become its admin, with the **Secret** access level, so you can see all of its data. You can lower your own access level later under [Settings](#changing-a-users-sensitivity-level). A workspace set up for you by Grein works the same way: its first admin gets the Secret access level too.
 
 If you were given a promo code, enter it in **Promo code (optional)**. The code puts the new workspace on the plan it was made for. A code may be limited to a number of workspaces or have an expiry date; if it's no longer valid, you'll see a message, and you can try again or leave the field empty to start on the Free plan. After 10 wrong codes, you have to wait 15 minutes before you can try another.
 

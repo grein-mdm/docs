@@ -162,7 +162,7 @@ Retention can be configured at two levels:
 
 If both the field and its entity type have a retention period, the **shorter** of the two applies to that field. If neither has one, data is kept indefinitely.
 
-When values are removed, their change history is removed too, and references pointing to a record that has been deleted are cleared.
+When values are removed, their change history is removed too, and references pointing to a record that has been deleted are cleared. A golden record loses the values that came from removed values, and is merged again from the values that are left: right away for entity types with auto-merge, otherwise the next time you merge.
 
 Retention policies are applied automatically once per day (UTC). See [Audit — Retention](audit.md#retention) for details on how retention interacts with audit data.
 
