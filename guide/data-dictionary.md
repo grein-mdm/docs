@@ -42,7 +42,7 @@ The data dictionary uses the same [sensitivity rules](sensitivity.md#how-visibil
 - **Entity types** whose sensitivity level is higher than your own access level are left out entirely.
 - **Fields** whose effective sensitivity is higher than your access level are left out of their entity type's table.
 
-A field's effective sensitivity is the stricter of the field's own label and its entity type's label. The **Sensitivity** column always shows this effective level. If the level comes from the entity type rather than the field's own label, the badge carries the same [overridden indicator](sensitivity.md#the-overridden-indicator) used on the schema page.
+A field's effective sensitivity is the stricter of the field's own label and its entity type's label. The **Sensitivity** column always shows this effective level, the one that decides who can see the field. If the level comes from the entity type rather than the field's own label, hovering over the badge shows **Set by the entity type**. The schema page shows the field's own label instead, with the [overridden indicator](sensitivity.md#the-overridden-indicator) when the entity type's label is stricter.
 
 > [!NOTE]
 > Hidden entity types and fields are left out without any notice, so you can't tell from the dictionary whether anything has been hidden from you. If you expect to see something that isn't listed, ask a workspace admin to check your [sensitivity level](users-and-permissions.md#changing-a-users-sensitivity-level).
